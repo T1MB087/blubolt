@@ -1,0 +1,97 @@
+// Basics
+
+$color_1: #00D0BB;
+$color_2: #000;
+$color_3: white;
+$background-color_1: #0191DE;
+$background-color_2: #F535C1;
+$breakpoints: (mobile: 0px,
+			   tablet: 768px, 
+               desktop: 1024px) !default;
+
+#grid-import{
+	top:0px; 
+	left:0px; 
+  	width:100%; 
+  	height:100%; 
+  	border: none; 
+}
+
+.module-one {
+	.product-card {
+		width: 250px;
+		border: none;
+		margin: 10px;
+    }
+	.image-container {
+		text-align: center;
+	}
+	.product-image {
+		width: 100%;
+	}
+	.text-container {
+		padding: 20px 0px;
+		color: $color_1;
+		font-size: 22px;
+	}
+	.brand {
+		letter-spacing: 3px;
+		font-size: 14px;
+	}
+	.slogan {
+		color: $color_2;
+		padding: 6px 0 6px 0;
+	}
+	.button-container {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	button {
+		width: 122px;
+		height: 50px;
+		color: $color_3;
+		border-radius: 8px;
+		border: none;
+		font-size: 18px;
+	}
+	.buy {
+		background-color: $background-color_1;
+	}
+	.more {
+		background-color: $background-color_2;
+	}
+	.grid-product-list {
+		 display: grid;
+		 margin: 0 auto;
+
+		@include respond-to('mobile') {
+			grid-template-columns: repeat(2, auto);
+			max-width: 550px;
+		}
+		@include respond-to('tablet') {
+			grid-template-columns: repeat(3, auto);
+			max-width: 810px;
+		}
+		@include respond-to('desktop') {
+			grid-template-columns: repeat(4, auto);
+			max-width: 1100px;
+		}
+	}
+}
+
+@mixin respond-to($breakpoint) {
+	  // If the key exists in the map
+	  @if map-has-key($breakpoints, $breakpoint) {
+	    // Prints a media query based on the value
+	    @media (min-width: map-get($breakpoints, $breakpoint)) {
+	      @content;
+	    }
+	  }
+
+	  // If the key doesn't exist in the map
+	  @else {
+	    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+	        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+	  }
+}
